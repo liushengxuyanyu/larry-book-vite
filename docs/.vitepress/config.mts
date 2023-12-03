@@ -66,6 +66,16 @@ export default defineConfig({
 
     // 默认配置 使用 数组，自定义配置使用 对象格式
     sidebar: {
+      '/typescript/': [
+        {
+          text: 'TypeScript',
+          collapsed: true,
+          items: [
+            { text: '基础', link: '/typescript/01.md' },
+            { text: '进阶', link: '/typescript/02.md' },
+          ]
+        }
+      ],
       '/vue2/': [
         {
           text: 'Vue2',
@@ -99,9 +109,9 @@ export default defineConfig({
       tipLabel: '提示',
       warningLabel: '警告',
       dangerLabel: '危险',
-      infoLabel: '信息',
-      detailsLabel: '查看答案'
+      infoLabel: '回答',
+      detailsLabel: '查看答案',
     },
-    // lineNumbers: true
+    lineNumbers: true,
   }
 })
