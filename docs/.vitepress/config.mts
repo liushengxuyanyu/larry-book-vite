@@ -115,7 +115,9 @@ export default defineConfig({
           collapsed: true,
           items: [
             // { text: 'Vue2', link: '/vue2/'},
-            { text: "基础", link: "/vue2/01.md" },
+            { text: "基础/API", link: "/vue2/01.md" },
+            { text: "生命周期", link: "/vue2/lifeCycle.md" },
+            { text: "路由", link: "/vue2/router.md" },
             { text: "进阶", link: "/vue2/02.md" }
           ]
         }
