@@ -63,9 +63,136 @@
 
 :::
 
-## vue-router 钩子函数有哪些？执行顺序是什么？
+## vue-router 路由(导航)守卫有哪些?
+::: details
+> 也有的会问vue-router如何保护路由，都是一个意思。守卫就是保护的意思。 
 
-## route 和 router 的区别?
+**路由守卫**就是路由跳转过程中的一些生命周期函数（钩子函数），我们可以利用这些钩子函数帮我们实现一些需求。
+
+路由守卫又具体分为**全局路由守卫**、**路由独享守卫**以及**组件路由守卫**。
+
+**全局(3个)**
+1. 全局前置守卫: `router.beforeEach`
+> 其主要作用就是用于登录验证
+
+2. 全局解析守卫: `router.beforeResolve`
+>  是获取数据或执行任何其他操作（如果用户无法进入页面时你希望避免执行的操作）的理想位置。
+
+3. 全局后置守卫: `router.afterEach`
+> 路由跳转完成了，这不需要next()
+
+**路由独享守卫(1个)**
+
+`beforeEnter`,只有进入到该路由的时候会触发, 定义在某个路由上。
+```js
+const routes = [
+  {
+    path: '/users/:id',
+    component: UserDetails,
+    beforeEnter: (to, from) => {
+      // reject the navigation
+      return false
+    },
+  },
+]
+```
+
+**组件路由守卫(3个)**
+
+`beforeRouteEnter`
+```js
+beforeRouteEnter(to, from, next) {
+  // 在渲染该组件的对应路由被验证前调用
+  // 不能获取组件实例 `this` ！
+  // 因为当守卫执行时，组件实例还没被创建！
+  // [!code warning] // 可以在next中回调 拿到 组件实例
+  next(vm => {
+    // 通过 `vm` 访问组件实例
+  })
+},
+```
+`beforeRouteUpdate`
+```js
+beforeRouteUpdate(to, from) {
+  // 在当前路由改变，但是该组件被复用时调用
+  // 举例来说，对于一个带有动态参数的路径 `/users/:id`，在 `/users/1` 和 `/users/2` 之间跳转的时候，
+  // 由于会渲染同样的 `UserDetails` 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+  // 因为在这种情况发生的时候，组件已经挂载好了，导航守卫可以访问组件实例 `this`
+},
+```
+`beforeRouteLeave`
+```js
+beforeRouteLeave(to, from) {
+  // 在导航离开渲染该组件的对应路由时调用
+  // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`
+},
+```
+
+:::
+
+## 完整的导航执行解析流程？
+::: details
+
+1. 导航被触发。
+2. 在失活的组件里调用 `beforeRouteLeave` 守卫。
+3. 调用全局的 `beforeEach` 守卫。
+4. 在重用的组件里调用 `beforeRouteUpdate` 守卫(2.2+)。
+5. 在路由配置里调用 `beforeEnter。`
+6. 解析异步路由组件。
+7. 在被激活的组件里调用 `beforeRouteEnter。`
+8. 调用全局的 `beforeResolve` 守卫(2.5+)。
+9. 导航被确认。
+10. 调用全局的 `afterEach` 钩子。
+11. 触发 `DOM` 更新。
+12. 调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数，创建好的组件实例会作为回调函数的参数传入。
+:::
+
+## 路由守卫(钩子) 和 组件的生命周期(钩子) 的执行顺序？
+::: details
+> 不要死记，最好在代码里跑一遍，理解完这个执行顺序，基本上开发能解决大部分问题！
+
+分两种情况：
+
+1. **打开页面的任意一个页面，没有发生导航切换。**
+
+全局前置守卫beforeEach (路由器实例内的前置守卫)->路由独享守卫beforeEnter(激活的路由)->组件内守卫beforeRouteEnter(渲染的组件)->全局解析守卫beforeResolve(路由器实例内的解析守卫)->全局后置钩子afterEach(路由器实例内的后置钩子)->beforeCreate->Created->beforeMount->Mounted
+
+2. **如果是有导航切换的(从一个组件切换到另外一个组件)**
+
+组件内守卫beforeRouteLeave(即将离开的组件)->全局前置守卫beforeEach (路由器实例内的前置守卫)->组件内守卫beforeRouteEnter(渲染的组件)->全局解析守卫beforeResolve(路由器实例内的解析守卫)->全局后置钩子afterEach(路由器实例内的后置钩子)->beforeCreate->created->beforeMount->beforeDestroy->destroyed->mounted
+
+:::
+
+## $route 和 $router 的区别?
+::: details
+`$route`: 是当前**路由信息对象**，包括 **path、params、hash、query、fullPath、matched、name** 等路由信息参数
+
+`$router`: 是**路由实例对象**，包括了路由的跳转方式 **push()、go()，钩子函数**等
+:::
+
+## 路由之间跳转有哪些方式？明天继续看下router文档这里
+:::details
+1. **声明式导航**
+```html
+<!-- [!code highlight]通过内置组件 router-link 来实现 -->
+<router-link :to="/home"></router-link>
+```
+
+2. **编程式导航**
+
+通过调用 `router` 实例的方法跳转
+```js
+// [!code highlight] push
+this.$router.push({
+  path: '/home'
+})
+// [!code highlight] replace
+this.$router.replace({
+  path: '/home'
+})
+```
+
+:::
 
 ## 路由传参的方式？
 
@@ -76,7 +203,31 @@
 ::: details
 默认情况下共享组件将不会重新渲染，如果尝试在使用相同组件的路由之间进行切换，则**不会发生任何变化**。
 
-如果依然想重新渲染，可以使用**key**
+1. 可以使用`watch`来监听，`$route` 对象上的任意属性
+```js
+const User = {
+  template: '...',
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        // 对路由变化做出响应...
+      }
+    )
+  },
+}
+```
+2. 使用 `beforeRouteUpdate `导航守卫
+```js
+const User = {
+  template: '...',
+  async beforeRouteUpdate(to, from) {
+    // 对路由变化做出响应...
+    this.userData = await fetchUser(to.params.id)
+  },
+}
+```
+3. 也可以使用`key`
 
 ```html
 <template>
@@ -84,6 +235,20 @@
 </template>
 ```
 
+:::
+
+## 路由怎么配置404页面？
+::: details
+```js
+const router = new VueRouter({
+  routes: [
+    {
+      path: '*', redirect: {path: '/'}
+    }
+  ]
+})
+
+```
 :::
 
 <style>

@@ -2,7 +2,7 @@
 生命周期相关专题 训练
 :::
 
-## Vue 的生命周期(又称为钩子)?
+## Vue 的生命周期(钩子)?
 
 ::: details
 **<font style="color: red">---------------创建阶段--------------</font>**
@@ -41,6 +41,8 @@
 
 被`keep-alive`缓存组件停用时调用
 
+**(注：路由注册中设置keep-alive: true 即缓存的页面没有9、10两个销毁生命周期)**
+
 **<font style="color: red">---------------销毁阶段--------------</font>**
 
 9. **beforeDestroy**:
@@ -65,6 +67,8 @@
 ## 页面第一次加载会触发那几个生命周期(钩子)?
 
 ::: details
+> 在路由面试题内，有带有路由版本的答案
+
 会触发 `beforeCreate`, `created`, `beforeMount`, `mounted` 这几个钩子
 :::
 
