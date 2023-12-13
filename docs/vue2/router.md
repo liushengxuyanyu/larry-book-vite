@@ -55,8 +55,13 @@
 
 - 兼容性只到 IE10；
 - 改变 `url` 路径后会重新请求资源；
-- 若访问的路由地址不存在时会报`404`，需服务端配合支持重定向返回统一的`404`页面；
+- 需要服务器配合，否则访问路由会`404`;
 
+```yaml
+location / {
+  try_files $uri $uri/ /index.html;
+}
+```
 **<font color="red">3.abstract 模式</font>**
 
 支持所有 `JavaScript` 运行环境，如 `Node.js` 服务器端。如果发现没有浏览器的 `API`，路由会自动强制进入这个模式
@@ -141,6 +146,11 @@ beforeRouteLeave(to, from) {
 
 :::
 
+## afterEach 钩子中可以使用 next()吗？
+::: details
+不可以，也没必要。
+:::
+
 ## 完整的导航执行解析流程？
 
 ::: details
@@ -192,7 +202,7 @@ beforeRouteLeave(to, from) {
 1. **声明式导航**
 
 ```html
-<!-- [!code highlight]通过内置组件 router-link 来实现 -->
+<!-- [!code highlight] --><!-- 通过内置组件 router-link 来实现 -->
 <router-link :to="/home"></router-link>
 ```
 
@@ -201,16 +211,16 @@ beforeRouteLeave(to, from) {
 通过调用 `router` 实例的方法跳转
 
 ```js
-// [!code highlight] push 进栈
+// [!code highlight] // push 进栈
 this.$router.push({
   path: "/home"
 })
-// [!code highlight] replace 替换
+// [!code highlight] // replace 替换
 this.$router.replace({
   path: "/home"
 })
 
-// [!code highlight] go 横跨历史
+// [!code highlight] // go 横跨历史
 this.$router.go(-1)
 this.$router.go(2)
 //
@@ -219,8 +229,89 @@ this.$router.go(2)
 :::
 
 ## 路由传参的方式？
+:::details
+1. `query`
+
+浏览器强制刷新参数**不会**被清空
+```js
+this.$route.push({
+  path: '/user',
+  query: {
+    userId: 123
+  }
+})
+```
+浏览器地址：`http://localhost:8080/user?userId=123`
+
+获取方式：`this.$route.query.userId`
+
+2. `params`
+
+浏览器强制刷新参数**会**被清空
+```js
+// 路由定义
+const routes = [
+  {
+    path: '/user/:userId',
+    name: 'user',
+    component: User,
+  }
+]
+
+// [!code highlight] // 要使用 命令路由(name) 配合使用，不能和 path一起使用
+// [!code highlight] // 分别会映射到/user/a 和 /user/b 都会导航到 User组件
+router.push({ name: 'user', params: { userId: 'a' } })
+router.push({ name: 'user', params: { userId: 'b' } })
+```
+浏览器地址： `http://localhost:8080/user/a`、 `http://localhost:8080/user/b`
+
+获取方式：`this.$route.params.userId`
+:::
+
+## 如何定义动态路由？
+::: details
+就是上面说的 使用 `path: '/user/:userId'`, 冒号定义， 使用 `params` 方式获取。
+:::
 
 ## 如何实现路由按需加载(路由懒加载)？
+::: details
+`Vue Router` 支持开箱即用的动态导入，这意味着你可以用动态导入代替静态导入：
+```js
+// 将
+// import UserDetails from './views/UserDetails.vue'
+// 替换成
+const UserDetails = () => import('./views/UserDetails.vue')
+```
+使用 `webpack` 的注释语法可以把某个路由下的所有组件都打包在同个异步块 (chunk) 中
+```js
+const UserDetails = () =>
+  import(/* webpackChunkName: "group-user" */ './UserDetails.vue')
+const UserDashboard = () =>
+  import(/* webpackChunkName: "group-user" */ './UserDashboard.vue')
+const UserProfileEdit = () =>
+  import(/* webpackChunkName: "group-user" */ './UserProfileEdit.vue')
+```
+使用 `vite` 可以在 `rollupOptions` 下定义分块：
+```js
+// vite.config.js
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      // https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          'group-user': [
+            './src/UserDetails',
+            './src/UserDashboard',
+            './src/UserProfileEdit',
+          ],
+        },
+      },
+    },
+  },
+})
+```
+:::
 
 ## 多个路由指向同一个组件的会怎么样？
 
@@ -277,6 +368,66 @@ const router = new VueRouter({
       redirect: { path: "/" }
     }
   ]
+})
+```
+:::
+
+## 路由的元信息作用什么？
+::: details
+有时，你可能希望将任意信息附加到路由上，如**过渡名称**、**谁可以访问路由**等。这些事情可以通过接收属性对象的`meta`属性来实现，并且它可以在**路由地址**和**导航守卫**上都被访问到。定义路由的时候你可以这样配置 `meta` 字段：
+```js
+const routes = [
+  {
+    path: '/posts',
+    component: PostsLayout,
+    children: [
+      {
+        path: 'new',
+        component: PostsNew,
+        // 只有经过身份验证的用户才能创建帖子
+        meta: { requiresAuth: true }
+      },
+      {
+        path: ':id',
+        component: PostsDetail
+        // 任何人都可以阅读文章
+        meta: { requiresAuth: false }
+      }
+    ]
+  }
+]
+```
+:::
+
+## 切换路由时如何设置滚动位置？
+::: details
+**注意: 这个功能只在支持 `history.pushState` 的浏览器中可用。**
+
+当创建一个 `Router` 实例，你可以提供一个 `scrollBehavior` 方法：
+```js
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [...],
+  scrollBehavior (to, from, savedPosition) {
+    // return 期望滚动到哪个的位置
+    // [!code highlight] // 始终滚动到顶部
+    return { top: 0 }
+
+    // [!code highlight] // 始终在元素 #main 上方滚动 10px
+    return {
+      // 也可以这么写
+      // el: document.getElementById('main'),
+      el: '#main',
+      top: -10,
+    }
+
+    // [!code highlight]  // 如果你要模拟 “滚动到锚点” 的行为：
+    if (to.hash) {
+      return {
+        el: to.hash,
+      }
+    }
+  }
 })
 ```
 
