@@ -136,8 +136,8 @@ export default defineConfig({
           text: "JavaScript",
           collapsed: true,
           items: [
-            { text: "API基础", link: "/language/javascript/01.md" },
-            { text: "API进阶", link: "/language/javascript/02.md" },
+            { text: "基础01", link: "/language/javascript/01.md" },
+            { text: "基础02", link: "/language/javascript/02.md" },
             { text: "其它", link: "/language/javascript/03.md" }
             // { text: 'DOM/BOM', link: '/language/javascript/02.md' },
           ]
