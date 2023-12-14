@@ -34,11 +34,53 @@ export default defineConfig({
         items: [
           {
             text: "Vue2",
-            link: "/vue2/01.md"
+            link: "/frame/vue2/01.md"
           },
           {
             text: "Vue3",
-            link: "/vue3/01.md"
+            link: "/frame/vue3/01.md"
+          }
+          // {
+          //   text: 'React',
+          //   items: [
+          //     { text: '基础', link: '/frame/vue-01.md' },
+          //     { text: '进阶', link: '/frame/vue-01.md' },
+          //   ]
+          // }
+        ]
+      },
+      // 下拉列表
+      {
+        text: "浏览器",
+        items: [
+          {
+            text: "浏览器",
+            link: "/browser/01.md"
+          },
+          {
+            text: "http",
+            link: "/browser/02.md"
+          }
+          // {
+          //   text: 'React',
+          //   items: [
+          //     { text: '基础', link: '/frame/vue-01.md' },
+          //     { text: '进阶', link: '/frame/vue-01.md' },
+          //   ]
+          // }
+        ]
+      },
+      // 下拉列表
+      {
+        text: "工程化",
+        items: [
+          {
+            text: "Webpack",
+            link: "/engine/webpack/01.md"
+          },
+          {
+            text: "Vite",
+            link: "/engine/vite/01.md"
           }
           // {
           //   text: 'React',
@@ -109,26 +151,25 @@ export default defineConfig({
           ]
         }
       ],
-      "/vue2/": [
+      "/frame/": [
         {
           text: "Vue2",
           collapsed: true,
           items: [
             // { text: 'Vue2', link: '/vue2/'},
-            { text: "基础/API", link: "/vue2/01.md" },
-            { text: "生命周期", link: "/vue2/lifeCycle.md" },
-            { text: "路由", link: "/vue2/router.md" },
-            { text: "进阶", link: "/vue2/02.md" }
+            { text: "基础/API", link: "/frame/vue2/01.md" },
+            { text: "生命周期", link: "/frame/vue2/lifeCycle.md" },
+            { text: "路由", link: "/frame/vue2/router.md" },
+            { text: "组件", link: "/frame/vue2/component.md" },
+            { text: "进阶", link: "/frame/vue2/02.md" }
           ]
-        }
-      ],
-      "/vue3/": [
+        },
         {
           text: "Vue3",
           collapsed: true,
           items: [
-            { text: "基础", link: "/vue3/01.md" },
-            { text: "进阶", link: "/vue3/02.md" }
+            { text: "基础", link: "/frame/vue3/01.md" },
+            { text: "进阶", link: "/frame/vue3/02.md" }
           ]
         }
       ]
