@@ -107,7 +107,13 @@ export default defineConfig({
       },
       {
         text: "常用工具",
-        items: [{ text: "图片压缩", link: "https://tinify.cn/" }]
+        items: [
+          { text: "图片压缩", link: "https://tinify.cn/" },
+          {
+            text: "颜色转换",
+            link: "https://www.bchrt.com/tools/color-convert/"
+          }
+        ]
       }
     ],
 
@@ -142,6 +148,7 @@ export default defineConfig({
             { text: "生命周期", link: "/frame/vue2/lifeCycle.md" },
             { text: "路由", link: "/frame/vue2/router.md" },
             { text: "组件", link: "/frame/vue2/component.md" },
+            { text: "其他", link: "/frame/vue2/common.md" },
             { text: "进阶(重点/难点)", link: "/frame/vue2/02.md" }
           ]
         },
