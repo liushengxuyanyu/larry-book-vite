@@ -4,7 +4,7 @@
 
 ## 客户端(前端)路由 和 服务端路由的区别？
 
-::: details
+::: info
 
 > 严谨点的说，在渲染页面的区别。因为服务端路由 还有可能做服务端自己的事情。
 
@@ -22,7 +22,7 @@
 
 ## vue-router 有几种模式?
 
-::: details
+::: info
 三种模式
 
 **<font color="red">1.hash 模式</font>**
@@ -71,7 +71,7 @@ try_files $uri $uri/ /index.html;
 
 ## vue-router 路由(导航)守卫有哪些?
 
-::: details
+::: info
 
 > 也有的会问 vue-router 如何保护路由，都是一个意思。守卫就是保护的意思。
 
@@ -103,10 +103,10 @@ const routes = [
     component: UserDetails,
     beforeEnter: (to, from) => {
       // reject the navigation
-      return false
-    }
-  }
-]
+      return false;
+    },
+  },
+];
 ```
 
 **组件路由守卫(3 个)**
@@ -149,13 +149,13 @@ beforeRouteLeave(to, from) {
 
 ## afterEach 钩子中可以使用 next()吗？
 
-::: details
+::: info
 不可以，也没必要。
 :::
 
 ## 完整的导航执行解析流程？
 
-::: details
+::: info
 
 1. 导航被触发。
 2. 在失活的组件里调用 `beforeRouteLeave` 守卫。
@@ -169,11 +169,12 @@ beforeRouteLeave(to, from) {
 10. 调用全局的 `afterEach` 钩子。
 11. 触发 `DOM` 更新。
 12. 调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数，创建好的组件实例会作为回调函数的参数传入。
-    :::
+
+:::
 
 ## 路由守卫(钩子) 和 组件的生命周期(钩子) 的执行顺序？
 
-::: details
+::: info
 
 > 不要死记，最好在代码里跑一遍，理解完这个执行顺序，基本上开发能解决大部分问题！
 
@@ -191,7 +192,7 @@ beforeRouteLeave(to, from) {
 
 ## $route 和 $router 的区别?
 
-::: details
+::: info
 `$route`: 是当前**路由信息对象**，包括 **path、params、hash、query、fullPath、matched、name** 等路由信息参数
 
 `$router`: 是**路由实例对象**，包括了路由的跳转方式 **push()、go()，钩子函数**等
@@ -199,7 +200,7 @@ beforeRouteLeave(to, from) {
 
 ## 路由之间跳转有哪些方式？明天继续看下 router 文档这里
 
-:::details
+::: info
 
 1. **声明式导航**
 
@@ -215,16 +216,16 @@ beforeRouteLeave(to, from) {
 ```js
 // [!code highlight] // push 进栈
 this.$router.push({
-  path: "/home"
-})
+  path: "/home",
+});
 // [!code highlight] // replace 替换
 this.$router.replace({
-  path: "/home"
-})
+  path: "/home",
+});
 
 // [!code highlight] // go 横跨历史
-this.$router.go(-1)
-this.$router.go(2)
+this.$router.go(-1);
+this.$router.go(2);
 //
 ```
 
@@ -232,7 +233,7 @@ this.$router.go(2)
 
 ## 路由传参的方式？
 
-:::details
+::: info
 
 1. `query`
 
@@ -242,9 +243,9 @@ this.$router.go(2)
 this.$route.push({
   path: "/user",
   query: {
-    userId: 123
-  }
-})
+    userId: 123,
+  },
+});
 ```
 
 浏览器地址：`http://localhost:8080/user?userId=123`
@@ -261,14 +262,14 @@ const routes = [
   {
     path: "/user/:userId",
     name: "user",
-    component: User
-  }
-]
+    component: User,
+  },
+];
 
 // [!code highlight] // 要使用 命令路由(name) 配合使用，不能和 path一起使用
 // [!code highlight] // 分别会映射到/user/a 和 /user/b 都会导航到 User组件
-router.push({ name: "user", params: { userId: "a" } })
-router.push({ name: "user", params: { userId: "b" } })
+router.push({ name: "user", params: { userId: "a" } });
+router.push({ name: "user", params: { userId: "b" } });
 ```
 
 浏览器地址： `http://localhost:8080/user/a`、 `http://localhost:8080/user/b`
@@ -278,31 +279,31 @@ router.push({ name: "user", params: { userId: "b" } })
 
 ## 如何定义动态路由？
 
-::: details
+::: info
 就是上面说的 使用 `path: '/user/:userId'`, 冒号定义， 使用 `params` 方式获取。
 :::
 
 ## 如何实现路由按需加载(路由懒加载)？
 
-::: details
+::: info
 `Vue Router` 支持开箱即用的动态导入，这意味着你可以用动态导入代替静态导入：
 
 ```js
 // 将
 // import UserDetails from './views/UserDetails.vue'
 // 替换成
-const UserDetails = () => import("./views/UserDetails.vue")
+const UserDetails = () => import("./views/UserDetails.vue");
 ```
 
 使用 `webpack` 的注释语法可以把某个路由下的所有组件都打包在同个异步块 (chunk) 中
 
 ```js
 const UserDetails = () =>
-  import(/* webpackChunkName: "group-user" */ "./UserDetails.vue")
+  import(/* webpackChunkName: "group-user" */ "./UserDetails.vue");
 const UserDashboard = () =>
-  import(/* webpackChunkName: "group-user" */ "./UserDashboard.vue")
+  import(/* webpackChunkName: "group-user" */ "./UserDashboard.vue");
 const UserProfileEdit = () =>
-  import(/* webpackChunkName: "group-user" */ "./UserProfileEdit.vue")
+  import(/* webpackChunkName: "group-user" */ "./UserProfileEdit.vue");
 ```
 
 使用 `vite` 可以在 `rollupOptions` 下定义分块：
@@ -318,20 +319,20 @@ export default defineConfig({
           "group-user": [
             "./src/UserDetails",
             "./src/UserDashboard",
-            "./src/UserProfileEdit"
-          ]
-        }
-      }
-    }
-  }
-})
+            "./src/UserProfileEdit",
+          ],
+        },
+      },
+    },
+  },
+});
 ```
 
 :::
 
 ## 多个路由指向同一个组件的会怎么样？
 
-::: details
+::: info
 默认情况下共享组件将不会重新渲染，如果尝试在使用相同组件的路由之间进行切换，则**不会发生任何变化**。
 
 1. 可以使用`watch`来监听，`$route` 对象上的任意属性
@@ -345,9 +346,9 @@ const User = {
       (toParams, previousParams) => {
         // 对路由变化做出响应...
       }
-    )
-  }
-}
+    );
+  },
+};
 ```
 
 2. 使用 `beforeRouteUpdate `导航守卫
@@ -357,9 +358,9 @@ const User = {
   template: "...",
   async beforeRouteUpdate(to, from) {
     // 对路由变化做出响应...
-    this.userData = await fetchUser(to.params.id)
-  }
-}
+    this.userData = await fetchUser(to.params.id);
+  },
+};
 ```
 
 3. 也可以使用`key`
@@ -374,24 +375,24 @@ const User = {
 
 ## 路由怎么配置 404 页面？
 
-::: details
+::: info
 
 ```js
 const router = new VueRouter({
   routes: [
     {
       path: "*",
-      redirect: { path: "/" }
-    }
-  ]
-})
+      redirect: { path: "/" },
+    },
+  ],
+});
 ```
 
 :::
 
 ## 路由的元信息作用什么？
 
-::: details
+::: info
 有时，你可能希望将任意信息附加到路由上，如**过渡名称**、**谁可以访问路由**等。这些事情可以通过接收属性对象的`meta`属性来实现，并且它可以在**路由地址**和**导航守卫**上都被访问到。定义路由的时候你可以这样配置 `meta` 字段：
 
 ```js
@@ -421,7 +422,7 @@ const routes = [
 
 ## 切换路由时如何设置滚动位置？
 
-::: details
+::: info
 **注意: 这个功能只在支持 `history.pushState` 的浏览器中可用。**
 
 当创建一个 `Router` 实例，你可以提供一个 `scrollBehavior` 方法：

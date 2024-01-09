@@ -1,10 +1,10 @@
 ::: tip
-生命周期相关专题 训练
+生命周期相关专题 训练，无特殊说明，指的都是 Vue2
 :::
 
 ## Vue 的生命周期(钩子)?
 
-::: details
+::: info
 **<font style="color: red">---------------创建阶段--------------</font>**
 
 1. **beforeCreated**:
@@ -41,7 +41,7 @@
 
 被`keep-alive`缓存组件停用时调用
 
-**(注：路由注册中设置keep-alive: true 即缓存的页面没有9、10两个销毁生命周期)**
+**(注：路由注册中设置 keep-alive: true 即缓存的页面没有 9、10 两个销毁生命周期)**
 
 **<font style="color: red">---------------销毁阶段--------------</font>**
 
@@ -66,7 +66,8 @@
 
 ## 页面第一次加载会触发那几个生命周期(钩子)?
 
-::: details
+::: info
+
 > 在路由面试题内，有带有路由版本的答案
 
 会触发 `beforeCreate`, `created`, `beforeMount`, `mounted` 这几个钩子
@@ -74,13 +75,13 @@
 
 ## DOM 渲染在 哪个周期中完成的？
 
-::: details
+::: info
 **mounted**
 :::
 
 ## 在哪个生命周期内调用异步请求？
 
-::: details
+::: info
 可以在钩子函数 **created、beforeMount、mounted** 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。
 
 但是推荐在 **<font color="red">created</font>** 钩子函数中调用异步请求，因为在 **<font color="red">created</font>** 钩子函数中调用异步请求有以下优点：
@@ -90,9 +91,71 @@
 
 :::
 
+## 在 beforeCreate、created、beforeMount、mounted、beforeUpdate 修改数据会触发 updated 钩子吗？
+
+::: info
+
+- `beforeCreate`是拿不到响应式数据的，可以修改，但没有响应式效果 页面也不会显示修改后的数据，更<font color="red">不会</font>触发 `updated`
+
+- `created`可以拿到`data`中响应式数据，修改后，**页面会更新修改后的数据(首次渲染相当于，在 mounted 挂在后更新的)**, 但<font color="red">不会</font>触发 `updated`
+
+- `beforeMount` 和 created 一样，只不过这一步 仅仅是 虚拟 DOM 创建完毕， <font color="red">不会</font>触发 `updated`
+
+- `mounted` 这时候页面已经挂载完毕，已经可以访问真实 DOM，在这里会修改数据的话， <font color="blue">会</font>触发 `updated`
+
+- `beforeUpdate` 这个钩子发生在更新之前，也就是响应式数据发生更新，虚拟 dom 重新渲染之前被触发，可以在当前阶段进行更改数据，不会造成重渲染, <font color="red">不会</font>触发 `updated`
+
+:::
+
+## 在 updated 中修改数据会怎么样？
+
+::: info
+**首先可以确定的是并不会触发死循环。**
+
+要分 2 种情况：
+
+1. 触发 `updated` 钩子之前，修改的数据 和 `updated` 内修改的数据 值保持一致的话，只会触发 **一次** `updated`, vue 内部对响应式处理 有判断，如果两次修改的值 一致的话，直接返回，并不会触发响应式更新。
+
+```js
+updated() {
+  // updated内，再次 修改数据 值如果和之前一样，则不会触发 updated
+  this.msg = 123
+},
+methods: {
+  // 点击clickFn 修改数据 会触发 updated,
+  clickFn() {
+    this.msg = 123
+  }
+}
+```
+
+2. 触发 `updated` 钩子之前，修改的数据 和 `updated` 内修改的数据 值不同的话，会触发 **两次**
+
+```js
+updated() {
+  // updated内，修改为 123，则触发 响应式更新，所以再次 进入到 updated视图中，
+  // 然后又执行同样的赋值操作，和上次保持一致，不会再触发更新。
+  this.msg = 123
+},
+methods: {
+  // 点击clickFn 修改数据 会触发 updated,
+  clickFn() {
+    this.msg = 456
+  }
+}
+```
+
+:::
+
+## 生命周期钩子可以使用箭头函数吗？
+
+::: info
+不可以，在初始化生命周期钩子的时候，会内部会使用`apply` 和 `call` 改变`this`的只想，在箭头函数中`this`指向是无法改变的。
+:::
+
 ## Vue 父子组件生命周期流程？
 
-::: details
+::: info
 
 **<font color="red">父子组件的生命周期是一个嵌套的过程。</font>**
 
@@ -116,7 +179,7 @@
 
 ## 父组件可以监听到子组件的生命周期吗？
 
-::: details
+::: info
 
 1. **子组件`$emit()`触发自定义事件**
 
@@ -158,7 +221,7 @@ mounted(){
 
 ## Vue 的 el 属性和$mount 优先级？
 
-::: details
+::: info
 **`el`**的优先级会高，如下会渲染到`app`节点上。
 
 ```js
@@ -166,8 +229,8 @@ new Vue({
   router,
   store,
   el: "#app",
-  render: (h) => h(App)
-}).$mount("#ggg")
+  render: (h) => h(App),
+}).$mount("#ggg");
 ```
 
 :::
