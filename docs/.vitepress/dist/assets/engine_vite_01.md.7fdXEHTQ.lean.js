@@ -1,1 +1,0 @@
-import{_ as e,o as t,c as a}from"./chunks/framework.CP3Xps-Z.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"engine/vite/01.md","filePath":"engine/vite/01.md","lastUpdated":1702479498000}'),n={name:"engine/vite/01.md"};function r(o,s,i,c,d,p){return t(),a("div")}const f=e(n,[["render",r]]);export{m as __pageData,f as default};

@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/",
   title: "Larry的小书",
   description: "面试版",
   lastUpdated: true, // 文档更新时间：每个文件git最后提交的时间
@@ -47,35 +48,37 @@ export default defineConfig({
       },
       // 下拉列表
       {
-        text: "手写系列",
+        text: "code系列",
         items: [
           {
-            text: "基础",
-            link: "/code/01.md",
+            text: "编程能力",
+            items: [
+              {
+                text: "基础",
+                link: "/code/01.md",
+              },
+              {
+                text: "数组专题",
+                link: "/code/array.md",
+              },
+              {
+                text: "异步专题",
+                link: "/code/async.md",
+              },
+              {
+                text: "设计模式",
+                link: "/code/designMode.md",
+              },
+            ],
           },
           {
-            text: "数组专题",
-            link: "/code/array.md",
+            text: "算法",
+            items: [
+              { text: "数据结构", link: "/code/数据结构.md" },
+              { text: "算法", link: "/code/算法.md" },
+              { text: "leetcode", link: "/code/leetcode.md" },
+            ],
           },
-          {
-            text: "异步专题",
-            link: "/code/async.md",
-          },
-          {
-            text: "设计模式",
-            link: "/code/designMode.md",
-          },
-          {
-            text: "算法专题",
-            link: "/code/struct.md",
-          },
-          // {
-          //   text: 'React',
-          //   items: [
-          //     { text: '基础', link: '/frame/vue-01.md' },
-          //     { text: '进阶', link: '/frame/vue-01.md' },
-          //   ]
-          // }
         ],
       },
       // 下拉列表
@@ -101,19 +104,66 @@ export default defineConfig({
         ],
       },
       // 下拉列表
-      // {
-      //   text: "工程化",
-      //   items: [
-      //     {
-      //       text: "Webpack",
-      //       link: "/engine/webpack/01.md"
-      //     },
-      //     {
-      //       text: "Vite",
-      //       link: "/engine/vite/01.md"
-      //     }
-      //   ]
-      // },
+      {
+        text: "工程化",
+        items: [
+          {
+            text: "模块化",
+            link: "/engine/模块化/01.md",
+          },
+          {
+            text: "打包工具",
+            items: [
+              {
+                text: "webpack",
+                link: "/engine/webpack/01.md",
+              },
+              {
+                text: "vite",
+                link: "/engine/vite/01.md",
+              },
+              {
+                text: "rollup",
+                link: "/engine/rollup/01.md",
+              },
+            ],
+          },
+          {
+            text: "包管理",
+            link: "/engine/package/01.md",
+            // items: [
+            //   {
+            //     text: "包管理相关",
+            //     link: "/engine/package/01.md",
+            //   },
+            // ],
+          },
+          {
+            text: "babel",
+            link: "/engine/package/基础.md",
+            // items: [
+            //   {
+            //     text: "包管理相关",
+            //     link: "/engine/package/01.md",
+            //   },
+            // ],
+          },
+        ],
+      },
+      // 下拉列表
+      {
+        text: "项目其他",
+        items: [
+          {
+            text: "项目",
+            link: "/project/01.md",
+          },
+          {
+            text: "综合问题",
+            link: "/project/02.md",
+          },
+        ],
+      },
       {
         text: "博客/小册",
         items: [
@@ -181,14 +231,22 @@ export default defineConfig({
       ],
       "/code/": [
         {
-          text: "手写代码",
+          text: "编程能力",
           collapsed: true,
           items: [
             { text: "基础通用", link: "/code/01.md" },
             { text: "数组专题", link: "/code/array.md" },
             { text: "异步专题", link: "/code/async.md" },
             { text: "设计模式", link: "/code/designMode.md" },
-            { text: "算法", link: "/code/struct.md" },
+          ],
+        },
+        {
+          text: "数据结构与算法",
+          collapsed: true,
+          items: [
+            { text: "数据结构", link: "/code/数据结构.md" },
+            { text: "算法", link: "/code/算法.md" },
+            { text: "leetcode常见题", link: "/code/leetcode.md" },
           ],
         },
       ],
@@ -215,6 +273,35 @@ export default defineConfig({
           ],
         },
       ],
+      "/engine/": [
+        {
+          text: "模块化",
+          collapsed: true,
+          link: "/engine/模块化/01.md",
+          // items: [{ text: "包管理相关", link: "/engine/package/01.md" }],
+        },
+        {
+          text: "打包工具",
+          collapsed: true,
+          items: [
+            { text: "webpack", link: "/engine/webpack/01.md" },
+            { text: "webpack配置", link: "/engine/webpack/配置.md" },
+            { text: "vite", link: "/engine/vite/01.md" },
+            { text: "rollup", link: "/engine/rollup/01.md" },
+          ],
+        },
+        {
+          text: "包管理",
+          collapsed: true,
+          link: "/engine/package/01.md",
+          // items: [{ text: "包管理相关", link: "/engine/package/01.md" }],
+        },
+        {
+          text: "babel",
+          collapsed: true,
+          link: "/engine/babel/基础.md",
+        },
+      ],
       "/browser/": [
         {
           text: "浏览器相关",
@@ -222,7 +309,7 @@ export default defineConfig({
           items: [
             { text: "架构/渲染", link: "/browser/架构-渲染.md" },
             { text: "协议/网络", link: "/browser/协议-网络.md" },
-            { text: "缓存/存储", link: "/browser/缓存.md" },
+            { text: "缓存/存储", link: "/browser/缓存-存储.md" },
             { text: "安全", link: "/browser/安全.md" },
           ],
         },
