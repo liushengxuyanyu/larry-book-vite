@@ -17,7 +17,7 @@ export default defineConfig({
         items: [
           {
             text: "JavaScript",
-            link: "/language/javascript/01.md",
+            link: "/language/javascript/知识点.md",
           },
           {
             text: "TypeScript",
@@ -54,8 +54,8 @@ export default defineConfig({
             text: "编程能力",
             items: [
               {
-                text: "基础",
-                link: "/code/01.md",
+                text: "轮子实现",
+                link: "/code/轮子实现.md",
               },
               {
                 text: "数组专题",
@@ -64,6 +64,10 @@ export default defineConfig({
               {
                 text: "异步专题",
                 link: "/code/async.md",
+              },
+              {
+                text: "promiseA+规范",
+                link: "/code/promise.md",
               },
               {
                 text: "设计模式",
@@ -148,6 +152,16 @@ export default defineConfig({
             //   },
             // ],
           },
+          {
+            text: "微前端",
+            link: "/engine/微前端/01.md",
+            // items: [
+            //   {
+            //     text: "包管理相关",
+            //     link: "/engine/package/01.md",
+            //   },
+            // ],
+          },
         ],
       },
       // 下拉列表
@@ -159,8 +173,8 @@ export default defineConfig({
             link: "/project/01.md",
           },
           {
-            text: "综合问题",
-            link: "/project/02.md",
+            text: "解决方案",
+            link: "/project/解决方案.md",
           },
         ],
       },
@@ -215,7 +229,8 @@ export default defineConfig({
           text: "JavaScript",
           collapsed: true,
           items: [
-            { text: "基础01", link: "/language/javascript/01.md" },
+            { text: "知识点", link: "/language/javascript/知识点.md" },
+            { text: "代码题", link: "/language/javascript/代码题.md" },
             { text: "基础02", link: "/language/javascript/02.md" },
             { text: "其它", link: "/language/javascript/03.md" },
           ],
@@ -237,7 +252,8 @@ export default defineConfig({
             { text: "基础通用", link: "/code/01.md" },
             { text: "数组专题", link: "/code/array.md" },
             { text: "异步专题", link: "/code/async.md" },
-            { text: "设计模式", link: "/code/designMode.md" },
+            { text: "promiseA+规范", link: "/code/promise.md" },
+            { text: "设计模式", link: "/code/设计模式.md" },
           ],
         },
         {
@@ -301,6 +317,11 @@ export default defineConfig({
           collapsed: true,
           link: "/engine/babel/基础.md",
         },
+        {
+          text: "微前端",
+          collapsed: true,
+          link: "/engine/微前端/01.md",
+        },
       ],
       "/browser/": [
         {
@@ -311,6 +332,16 @@ export default defineConfig({
             { text: "协议/网络", link: "/browser/协议-网络.md" },
             { text: "缓存/存储", link: "/browser/缓存-存储.md" },
             { text: "安全", link: "/browser/安全.md" },
+          ],
+        },
+      ],
+      "/project/": [
+        {
+          text: "项目相关",
+          collapsed: true,
+          items: [
+            { text: "项目", link: "/project/01.md" },
+            { text: "解决方案", link: "/project/解决方案.md" },
           ],
         },
       ],

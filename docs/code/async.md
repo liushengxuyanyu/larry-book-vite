@@ -17,6 +17,23 @@ const sleep = (time) => {
 sleep(1000).then(() => {
   // 这里写你的骚操作
 });
+
+// async await
+function sleep(interval) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, interval);
+  });
+}
+
+// 用法
+async function one2FiveInAsync() {
+  for (let i = 1; i <= 5; i++) {
+    console.log(i);
+    await sleep(1000);
+  }
+}
+
+one2FiveInAsync();
 ```
 
 :::
