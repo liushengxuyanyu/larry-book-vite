@@ -1,0 +1,1 @@
+import{_ as e,o,c,R as d}from"./chunks/framework.4hIqoSk1.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"code/算法.md","filePath":"code/算法.md","lastUpdated":1710308518000}'),t={name:"code/算法.md"},a=d("",2),n=[a];function _(r,s,l,i,p,h){return o(),c("div",null,n)}const f=e(t,[["render",_]]);export{m as __pageData,f as default};
