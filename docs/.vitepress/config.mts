@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/",
+  base: "/larry-book-vite/",
   title: "Larry的小书",
   description: "面试版",
   lastUpdated: true, // 文档更新时间：每个文件git最后提交的时间
