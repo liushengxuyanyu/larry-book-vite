@@ -161,7 +161,7 @@ methods: {
 
 **渲染挂载过程：**
 
-> <font color="red">父 beforeCreate</font> -> <font color="red">父 created</font> -> <font color="red">父 beforeMount</font> -> <font color="blue">子 beforeCreate</font> -> <font color="blue">子 created</font> -> <font color="font">子 beforeMount</font> -> <font color="blue">子 mounted</font> -> <font color="red">父 mounted</font>
+> <font color="red">父 beforeCreate</font> -> <font color="red">父 created</font> -> <font color="red">父 beforeMount</font> -> <font color="blue">子 beforeCreate</font> -> <font color="blue">子 created</font> -> <font color="blue">子 beforeMount</font> -> <font color="blue">子 mounted</font> -> <font color="red">父 mounted</font>
 
 **子组件更新过程：**
 

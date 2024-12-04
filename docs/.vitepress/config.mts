@@ -23,6 +23,14 @@ export default defineConfig({
             text: "TypeScript",
             link: "/language/typescript/01.md",
           },
+          {
+            text: "HTML",
+            link: "/language/html/01.md",
+          },
+          {
+            text: "CSS",
+            link: "/language/css/01.md",
+          },
         ],
       },
       // 下拉列表
@@ -36,6 +44,10 @@ export default defineConfig({
           {
             text: "Vue3",
             link: "/frame/vue3/01.md",
+          },
+          {
+            text: "微信小程序",
+            link: "/frame/min/01.md",
           },
           // {
           //   text: 'React',
@@ -60,6 +72,10 @@ export default defineConfig({
               {
                 text: "数组专题",
                 link: "/code/array.md",
+              },
+              {
+                text: "功能逻辑实现",
+                link: "/code/功能实现.md",
               },
               {
                 text: "异步专题",
@@ -166,7 +182,7 @@ export default defineConfig({
       },
       // 下拉列表
       {
-        text: "项目其他",
+        text: "实战经验",
         items: [
           {
             text: "项目",
@@ -175,6 +191,20 @@ export default defineConfig({
           {
             text: "解决方案",
             link: "/project/解决方案.md",
+          },
+          {
+            text: "上传专题",
+            link: "/project/上传专题.md",
+          },
+        ],
+      },
+      // 下拉列表
+      {
+        text: "服务端相关",
+        items: [
+          {
+            text: "Nuxt3",
+            link: "/server/nuxt/nuxt_01.md",
           },
         ],
       },
@@ -230,8 +260,9 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "知识点", link: "/language/javascript/知识点.md" },
+            { text: "知识点2", link: "/language/javascript/知识点2.md" },
+            { text: "异步专题", link: "/language/javascript/async.md" },
             { text: "代码题", link: "/language/javascript/代码题.md" },
-            { text: "基础02", link: "/language/javascript/02.md" },
             { text: "其它", link: "/language/javascript/03.md" },
           ],
         },
@@ -243,13 +274,27 @@ export default defineConfig({
             { text: "进阶", link: "/language/typescript/02.md" },
           ],
         },
+        {
+          text: "HTML",
+          collapsed: true,
+          items: [
+            { text: "基础", link: "/language/html/01.md" },
+          ],
+        },
+        {
+          text: "CSS",
+          collapsed: true,
+          items: [
+            { text: "基础", link: "/language/css/01.md" },
+          ],
+        },
       ],
       "/code/": [
         {
           text: "编程能力",
           collapsed: true,
           items: [
-            { text: "基础通用", link: "/code/01.md" },
+            { text: "功能逻辑实现", link: "/code/功能实现.md" },
             { text: "数组专题", link: "/code/array.md" },
             { text: "异步专题", link: "/code/async.md" },
             { text: "promiseA+规范", link: "/code/promise.md" },
@@ -286,6 +331,13 @@ export default defineConfig({
           items: [
             { text: "基础", link: "/frame/vue3/01.md" },
             { text: "进阶", link: "/frame/vue3/02.md" },
+          ],
+        },
+        {
+          text: "微信小程序",
+          collapsed: true,
+          items: [
+            { text: "基础", link: "/frame/min/01.md" },
           ],
         },
       ],
@@ -337,12 +389,20 @@ export default defineConfig({
       ],
       "/project/": [
         {
-          text: "项目相关",
+          text: "实战经验",
           collapsed: true,
           items: [
             { text: "项目", link: "/project/01.md" },
             { text: "解决方案", link: "/project/解决方案.md" },
+            {text: "上传专题", link: "/project/上传专题.md"}
           ],
+        },
+      ],
+      "/server/": [
+        {
+          text: "服务端相关",
+          collapsed: true,
+          items: [{ text: "Nuxt3", link: "/server/nuxt/nuxt_01.md" }],
         },
       ],
     },

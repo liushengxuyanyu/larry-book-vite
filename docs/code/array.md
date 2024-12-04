@@ -187,6 +187,8 @@ Array.prototype.mySome = function (callback, context = window) {
 
 ## 实现数组扁平化 flat 方法(常考)？
 
+https://interview.poetries.top/docs/excellent-docs/3-JS%E6%A8%A1%E5%9D%97.html#_17-8-js%E4%B8%ADflat-%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96
+
 ::: details
 
 ```js
@@ -471,6 +473,31 @@ function compose(...funs) {
 ```
 
 :::
+
+## 请创建一个长度为100，值都为1的数组？
+
+::: details
+```js
+new Array(100).fill(1)
+```
+:::
+
+## 请创建一个长度为100，值为对应下标的数组?
+
+::: details
+```js
+// cool的写法：
+[...Array(100).keys()]
+
+// 其他方法：
+Array(100).join(",").split(",").map((v, i) => i)
+Array(100).fill().map((v, i) => i)
+```
+:::
+
+## 如何转化类数组成数组?
+
+https://interview.poetries.top/docs/excellent-docs/3-JS%E6%A8%A1%E5%9D%97.html#_17-5-%E5%A6%82%E4%BD%95%E8%BD%AC%E5%8C%96%E7%B1%BB%E6%95%B0%E7%BB%84%E6%88%90%E6%95%B0%E7%BB%84
 
 <style>
   /* 这里是 details 块的样式重写  不要切换黑暗模式 */

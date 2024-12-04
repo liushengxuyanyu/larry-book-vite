@@ -14,6 +14,13 @@
 
 :::
 
+## 封装一个组件要考虑哪些问题？
+
+业务组件、工具组件
+
+https://www.nowcoder.com/exam/interview/85027009/test?paperId=47569991&jobs=%5B11201%5D&order=0
+
+
 ## 组件为什么只能有一个根元素？
 
 vue2 中只允许一个根元素，是因为进行 diff 时会从根节点进行遍历，函数只处理了单节点的场景
@@ -207,6 +214,47 @@ Vue3 支持多个根元素，是因为 引入了 Fragment 的概念， 将多个
 - 查看生成渲染函数可知，递归组件查找时会传递一个布尔值给 resolveComponent，这样实际获取的组件就是当前组件本身
 
 ## 什么是高阶组件，使用场景？
+
+## vue组件隔离样式的原理(为什么添加scoped后可以隔离样式)？
+
+https://segmentfault.com/a/1190000041842510
+
+编译前：
+```html
+<style scoped>
+.myWrapper{
+  border: 5px solid black
+}
+</style>
+...
+<div class="myWrapper" >
+  <Calendar />
+</div>
+...
+```
+
+编译后：
+```html
+<style>
+.myWrapper[data-v-2fc5154c] {
+  border: 5px solid black
+}
+</style>
+<div class="myWrapper" data-v-2fc5154c>
+  ...
+</div>
+```
+
+可以看到，它的原理和CSS Module不太一样，Vue的Scoped会使CSS选择器后加上一个中括号。这并不是Vue独创的语法，而是**属性选择器**。
+
+## 为什么vue:deep、/deep/、>>>样式能穿透到子组件？
+
+https://juejin.cn/post/7397285315822632997?utm_source=gold_browser_extension
+
+## :deep支持嵌套么？
+不支持
+
+https://juejin.cn/post/7397285315822632997?utm_source=gold_browser_extension
 
 <style>
   /* 这里是 details 块的样式重写  不要切换黑暗模式 */
